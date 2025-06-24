@@ -3,7 +3,7 @@ use std::fs;
 
 
 pub fn read_file() {
-    let input = fs::read_to_string("src/day_04/input.sample").unwrap();
+    let input = fs::read_to_string("src/day_04/input").unwrap();
 
     let grid: Vec<Vec<char>> = input
         .lines()

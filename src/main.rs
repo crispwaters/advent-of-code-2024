@@ -1,4 +1,4 @@
-use crate::day_04::part_1::read_file;
+use crate::day_04::part_2::read_file;
 
 pub mod day_01;
 pub mod day_02;
