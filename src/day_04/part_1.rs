@@ -13,39 +13,37 @@ pub fn read_file() {
 }
 
 fn search_grid(grid: &Vec<Vec<char>>) {
+    let mut count = 0;
     for row in 0..grid.len() {
         for column in 0..grid[row].len() {
-            search_xmas((row, column), grid);
+            count += search_xmas((row, column), grid);
         }
     }
+    println!("Total: {}", count);
 }
 
 fn search_xmas((row, column): (usize, usize), grid: &Vec<Vec<char>>) -> i32 {
-    if grid[row][column] != 'X' { return 0 }
-    is_word_found((row, column), (-1, 0), grid);
-    is_word_found((row, column), (1, 0), grid);
-    is_word_found((row, column), (0, -1), grid);
-    is_word_found((row, column), (0, 1), grid);
-    is_word_found((row, column), (1, 1), grid);
-    is_word_found((row, column), (1, -1), grid);
-    is_word_found((row, column), (-1, 1), grid);
-    is_word_found((row, column), (-1, -1), grid);
-    println!("");
-
-    
-    return -1
+    // if grid[row][column] != 'X' { return 0 }
+    let mut count = 0;
+    if is_word_found((row, column), (-1, 0), grid) { count += 1;}
+    if is_word_found((row, column), (1, 0), grid) { count += 1;}
+    if is_word_found((row, column), (0, -1), grid) { count += 1;}
+    if is_word_found((row, column), (0, 1), grid) { count += 1;}
+    if is_word_found((row, column), (1, 1), grid) { count += 1;}
+    if is_word_found((row, column), (1, -1), grid) { count += 1;}
+    if is_word_found((row, column), (-1, 1), grid) { count += 1;}
+    if is_word_found((row, column), (-1, -1), grid) { count += 1;}
+    return count
 }
 
 fn is_word_found((row, column): (usize, usize), (row_direction, column_direction): (i32, i32), grid: &Vec<Vec<char>>) -> bool {
     let i_row = row as i32;
     let i_col = column as i32;
-    let x = get_cell((i_row, i_col), &grid);
-    let m = get_cell(cv((i_row, i_col), (row_direction, column_direction), 1), grid);
-    let a = get_cell(cv((i_row, i_col), (row_direction, column_direction), 2), grid);
-    let s = get_cell(cv((i_row, i_col), (row_direction, column_direction), 3), grid);
+    if get_cell((i_row, i_col), &grid) != 'X' { return false }
+    if get_cell(cv((i_row, i_col), (row_direction, column_direction), 1), grid) != 'M' { return false }
+    if get_cell(cv((i_row, i_col), (row_direction, column_direction), 2), grid) != 'A' { return false }
+    if get_cell(cv((i_row, i_col), (row_direction, column_direction), 3), grid) != 'S' { return false }
     
-    print!("'{x}{m}{a}{s}'");
-
     return true
 }
 
